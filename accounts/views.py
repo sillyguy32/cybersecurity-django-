@@ -1,0 +1,26 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+
+
+def home(request):
+    return render(request, "accounts/index.html")
+
+from django.shortcuts import render
+
+def home(request):
+    return render(request, "accounts/index.html")
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        email = request.POST.get('email')
+
+        # Create a new user
+        User.objects.create_user(username=username, password=password, email=email)
+        return redirect('home')
+    
+    return render(request, "accounts/register.html")
+
+def login_view(request):
+    return render(request, "accounts/login.html")
